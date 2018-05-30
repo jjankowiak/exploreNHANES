@@ -1,9 +1,12 @@
 Package: exploreNHANES
-Title: What the Package Does (one line, title case)
+Title: Explore and visualize NHANES data
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: person("Justyna", "Jankowiak", email = "just.jankowiak@gmail.com", role = c("aut", "cre"))
+Description: This package has been created to explore a subset of NHANES publication, drawing attention to the prevalence of exercise and associated health effects across different demographics. The functions allow to explore and visualize data.
 Depends: R (>= 3.4.4)
-License: What license is it under?
+License: file LICENSE
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.0.1
+Imports: dplyr,
+    ggplot2
