@@ -2,22 +2,22 @@
 % Please edit documentation in R/draw_functions.R
 \name{draw_barplot}
 \alias{draw_barplot}
-\title{Draw barplot}
+\title{Draw barplot for factor variables.}
 \usage{
 draw_barplot(dataset, counted_col, grouping_col)
 }
 \arguments{
 \item{dataset}{survey dataset}
 
-\item{counted_col}{a}
+\item{counted_col}{column name on X asix}
 
-\item{grouping_col}{a}
+\item{grouping_col}{column name used for grouping}
 }
 \value{
-ggplot
+barplot with counts for \code{counted_col}
 }
 \description{
-Description
+For selected \code{counted_col} draw barplot to count observations in groups specified by \code{grouping_col}.
 }
 \examples{
 draw_barplot(survey, "Age", "Ethnicity")

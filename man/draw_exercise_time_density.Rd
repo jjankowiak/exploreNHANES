@@ -2,22 +2,22 @@
 % Please edit documentation in R/draw_functions.R
 \name{draw_exercise_time_density}
 \alias{draw_exercise_time_density}
-\title{Draw density}
+\title{Draw density of exercise time.}
 \usage{
 draw_exercise_time_density(dataset, exercise_type, grouping_col)
 }
 \arguments{
 \item{dataset}{survey dataset}
 
-\item{exercise_type}{a}
+\item{exercise_type}{one of the factor value in \code{ExerciseType} column}
 
-\item{grouping_col}{a}
+\item{grouping_col}{column name used for grouping}
 }
 \value{
-ggplot
+density plot for exercise time of specific \code{exercise_type} grouped by \code{grouping_col}.
 }
 \description{
-Description
+Draw density of \code{exercise_type} time in groups specified by \code{grouping_col}.
 }
 \examples{
 draw_exercise_time_density(survey, "Vigorous Work", "Gender")

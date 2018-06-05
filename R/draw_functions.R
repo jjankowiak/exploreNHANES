@@ -1,10 +1,10 @@
-#' Draw barplot
+#' Draw barplot for factor variables.
 #'
-#' Description
+#' For selected \code{counted_col} draw barplot to count observations in groups specified by \code{grouping_col}.
 #' @param dataset survey dataset
-#' @param counted_col a
-#' @param grouping_col a
-#' @return ggplot
+#' @param counted_col column name on X asix
+#' @param grouping_col column name used for grouping
+#' @return barplot with counts for \code{counted_col}
 #'
 #' @examples
 #' draw_barplot(survey, "Age", "Ethnicity")
@@ -26,13 +26,13 @@ draw_barplot <- function(dataset, counted_col, grouping_col) {
     return(plt)
 }
 
-#' Draw density
+#' Draw density of exercise time.
 #'
-#' Description
+#' Draw density of \code{exercise_type} time in groups specified by \code{grouping_col}.
 #' @param dataset survey dataset
-#' @param exercise_type a
-#' @param grouping_col a
-#' @return ggplot
+#' @param exercise_type one of the factor value in \code{ExerciseType} column
+#' @param grouping_col column name used for grouping
+#' @return density plot for exercise time of specific \code{exercise_type} grouped by \code{grouping_col}.
 #'
 #' @examples
 #' draw_exercise_time_density(survey, "Vigorous Work", "Gender")
@@ -55,14 +55,14 @@ draw_exercise_time_density <- function(dataset, exercise_type, grouping_col) {
 }
 
 
-#' Draw activity effect
+#' Draw activity effect on continuous variable.
 #'
-#' Description
+#' Draw scatter plot of exercise time of specific \code{exercise_type} and \code{effect_on_col} (with regression line if \code{corr} is TRUE)
 #' @param dataset survey dataset
-#' @param exercise_type a
-#' @param effect_on_col a
-#' @param corr a
-#' @return ggplot
+#' @param exercise_type one of the factor value in \code{ExerciseType} column
+#' @param effect_on_col column name used for measuring excercise effect
+#' @param corr if \code{TRUE} regression line will be fitted to the plot
+#' @return scatter plot of exercise time of specific \code{exercise_type} and \code{effect_on_col} (with regression line if \code{corr} is TRUE)
 #'
 #' @examples
 #' draw_activity_effect(survey, "Vigorous Work", "Weight", FALSE)

@@ -2,24 +2,24 @@
 % Please edit documentation in R/draw_functions.R
 \name{draw_activity_effect}
 \alias{draw_activity_effect}
-\title{Draw activity effect}
+\title{Draw activity effect on continuous variable.}
 \usage{
 draw_activity_effect(dataset, exercise_type, effect_on_col, corr = TRUE)
 }
 \arguments{
 \item{dataset}{survey dataset}
 
-\item{exercise_type}{a}
+\item{exercise_type}{one of the factor value in \code{ExerciseType} column}
 
-\item{effect_on_col}{a}
+\item{effect_on_col}{column name used for measuring excercise effect}
 
-\item{corr}{a}
+\item{corr}{if \code{TRUE} regression line will be fitted to the plot}
 }
 \value{
-ggplot
+scatter plot of exercise time of specific \code{exercise_type} and \code{effect_on_col} (with regression line if \code{corr} is TRUE)
 }
 \description{
-Description
+Draw scatter plot of exercise time of specific \code{exercise_type} and \code{effect_on_col} (with regression line if \code{corr} is TRUE)
 }
 \examples{
 draw_activity_effect(survey, "Vigorous Work", "Weight", FALSE)
