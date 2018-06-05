@@ -1,4 +1,4 @@
-context("Explore functions")
+context("Test explore functions")
 
 test_that("count_observations throws correct errors", {
     expect_error(count_observations(), "dataset argument is missing")

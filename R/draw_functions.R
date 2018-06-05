@@ -14,6 +14,25 @@
 #' @import ggplot2
 #' @export
 draw_barplot <- function(dataset, counted_col, grouping_col) {
+    assert_that(!missing(dataset), msg = "dataset argument is missing")
+    assert_that(!missing(counted_col), msg = "counted_col argument is missing")
+    assert_that(!missing(grouping_col), msg = "grouping_col argument is missing")
+    assert_that(is.data.frame(dataset), msg = "dataset is not a data frame")
+    assert_that(is.character(counted_col), msg = "counted_col must be a string")
+    assert_that(counted_col %in% colnames(dataset),
+                msg = "counted_col must be dataset's column name")
+    assert_that(!is.numeric(dataset[, counted_col]),
+                msg = "counted_col must be of type factor or character")
+    assert_that(counted_col != "SeqID", msg = "counted_col must not be SeqID")
+    assert_that(is.character(grouping_col), msg = "grouping_col must be a string")
+    assert_that(grouping_col %in% colnames(dataset),
+                msg = "grouping_col must be dataset's column name")
+    assert_that(!is.numeric(dataset[, grouping_col]),
+                msg = "grouping_col must be of type factor or character")
+    assert_that(grouping_col != "SeqID", msg = "grouping_col must not be SeqID")
+    assert_that(grouping_col != counted_col,
+                msg = "grouping_col must differ from counted_col")
+
     dataset_plot <- dataset %>%
         filter_(paste0("!is.na(", counted_col, ") & !is.na(", grouping_col, ")"))
     plt <- ggplot(dataset_plot, aes_string(x = counted_col, fill = grouping_col)) +
@@ -22,7 +41,9 @@ draw_barplot <- function(dataset, counted_col, grouping_col) {
         scale_y_continuous(name = '# of Participants') +
         scale_x_discrete(name = counted_col) +
         scale_fill_brewer(palette = "OrRd") +
-        theme(axis.text.x = element_text(angle = 45, hjust = 1))
+        theme(axis.text.x = element_text(angle = 45, hjust = 1),
+              plot.title = element_text(hjust = 0.5)) +
+        ggtitle(paste0("Counts of ", counted_col, " grouped by ", grouping_col))
     return(plt)
 }
 
@@ -42,6 +63,22 @@ draw_barplot <- function(dataset, counted_col, grouping_col) {
 #' @import ggplot2
 #' @export
 draw_exercise_time_density <- function(dataset, exercise_type, grouping_col) {
+    assert_that(!missing(dataset), msg = "dataset argument is missing")
+    assert_that(!missing(exercise_type), msg = "exercise_type argument is missing")
+    assert_that(!missing(grouping_col), msg = "grouping_col argument is missing")
+    assert_that(is.data.frame(dataset), msg = "dataset is not a data frame")
+    assert_that(is.character(exercise_type), msg = "exercise_type must be a string")
+    assert_that(exercise_type %in% c("Vigorous Work", "Moderate Work", "Walking/Biking",
+                                     "Vigorous Recreation", "Moderate Recreation"),
+                msg = paste("exercise_type must be equal Vigorous Work, Moderate Work,",
+                "Walking/Biking, Vigorous Recreation or Moderate Recreation"))
+    assert_that(is.character(grouping_col), msg = "grouping_col must be a string")
+    assert_that(grouping_col %in% colnames(dataset),
+                msg = "grouping_col must be dataset's column name")
+    assert_that(!is.numeric(dataset[, grouping_col]),
+                msg = "grouping_col must be of type factor or character")
+    assert_that(grouping_col != "SeqID", msg = "grouping_col must not be SeqID")
+
     dataset_plot <- dataset %>%
         filter_(paste0("ExerciseType == '", exercise_type, "'")) %>%
         filter_(paste0("!is.na(MinutesPerDay) & !is.na(", grouping_col, ")"))
@@ -50,7 +87,9 @@ draw_exercise_time_density <- function(dataset, exercise_type, grouping_col) {
         theme_minimal() +
         scale_y_continuous(name = "Density") +
         scale_x_continuous(name = "Avg Minutes/Day") +
-        scale_color_brewer(palette = "OrRd")
+        scale_color_brewer(palette = "OrRd") +
+        ggtitle(paste0("Density of ", exercise_type, " time grouped by ", grouping_col)) +
+        theme(plot.title = element_text(hjust = 0.5))
     return(plt)
 }
 
@@ -72,23 +111,36 @@ draw_exercise_time_density <- function(dataset, exercise_type, grouping_col) {
 #' @import ggplot2
 #' @export
 draw_activity_effect <- function(dataset, exercise_type, effect_on_col, corr = TRUE) {
+    assert_that(!missing(dataset), msg = "dataset argument is missing")
+    assert_that(!missing(exercise_type), msg = "exercise_type argument is missing")
+    assert_that(!missing(effect_on_col), msg = "effect_on_col argument is missing")
+    assert_that(is.data.frame(dataset), msg = "dataset is not a data frame")
+    assert_that(is.character(exercise_type), msg = "exercise_type must be a string")
+    assert_that(exercise_type %in% c("Vigorous Work", "Moderate Work", "Walking/Biking",
+                                     "Vigorous Recreation", "Moderate Recreation"),
+                msg = paste("exercise_type must be equal Vigorous Work, Moderate Work,",
+                            "Walking/Biking, Vigorous Recreation or Moderate Recreation"))
+    assert_that(is.character(effect_on_col), msg = "effect_on_col must be a string")
+    assert_that(effect_on_col %in% colnames(dataset),
+                msg = "effect_on_col must be dataset's column name")
+    assert_that(is.numeric(dataset[, effect_on_col]),
+                msg = "effect_on_col must be of type numeric")
+    assert_that(is.logical(corr) & length(corr) == 1,
+                msg = "corr must be a logical value")
+
     dataset_plot <- dataset %>%
         filter_(paste0("ExerciseType == '", exercise_type, "'")) %>%
-        filter_(paste0("!is.na(", effect_on_col, ")"))
+        filter_(paste0("!is.na(MinutesPerDay) & !is.na(", effect_on_col, ")"))
     plt <- ggplot(dataset_plot, aes_(x = ~MinutesPerDay)) +
         geom_point(aes_string(y = effect_on_col), colour = 'dodgerblue4', alpha = 0.7) +
         theme_minimal() +
         scale_y_continuous(name = effect_on_col) +
-        scale_x_continuous(name = "Avg Minutes/Day")
+        scale_x_continuous(name = "Avg Minutes/Day") +
+        ggtitle(paste0("Effect of ", exercise_type, " on ", effect_on_col)) +
+        theme(plot.title = element_text(hjust = 0.5))
     if (corr) {
         plt <- plt + geom_smooth(aes_string(y = effect_on_col), method = 'lm',
                                  colour = 'darkred', fill = 'grey85', alpha = 0.7)
     }
     return(plt)
 }
-
-
-# TODO:
-# - change colors
-# - add titles
-# - finish documentation
