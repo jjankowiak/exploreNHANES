@@ -11,7 +11,7 @@
 #' count_observations(survey, c("Gender", "Age"))
 #'
 #' @importFrom dplyr group_by_ summarise n %>%
-#' @import assertthat
+#' @importFrom assertthat assert_that
 #' @export
 count_observations <- function(dataset, grouping_cols) {
     assert_that(!missing(dataset), msg = "dataset argument is missing")
@@ -47,6 +47,7 @@ count_observations <- function(dataset, grouping_cols) {
 #' calculate_aggregated_value(survey, "BMI", "max", TRUE)
 #
 #' @importFrom dplyr filter_ mutate_ summarise_ %>%
+#' @importFrom assertthat assert_that
 #' @export
 calculate_aggregated_value <- function(dataset, column, agg_fun, as_num = FALSE) {
     assert_that(!missing(dataset), msg = "dataset argument is missing")

@@ -11,6 +11,7 @@
 #' draw_barplot(survey, "Income", "Gender")
 #
 #' @importFrom dplyr filter_ %>%
+#' @importFrom assertthat assert_that
 #' @import ggplot2
 #' @export
 draw_barplot <- function(dataset, counted_col, grouping_col) {
@@ -35,17 +36,20 @@ draw_barplot <- function(dataset, counted_col, grouping_col) {
 
     dataset_plot <- dataset %>%
         filter_(paste0("!is.na(", counted_col, ") & !is.na(", grouping_col, ")"))
+
+    assert_that(nrow(dataset_plot) > 0, msg = "dataset used to plot is empty")
+
     plt <- ggplot(dataset_plot, aes_string(x = counted_col, fill = grouping_col)) +
         geom_bar() +
         theme_minimal() +
         scale_y_continuous(name = '# of Participants') +
         scale_x_discrete(name = counted_col) +
-        scale_fill_brewer(palette = "OrRd") +
         theme(axis.text.x = element_text(angle = 45, hjust = 1),
               plot.title = element_text(hjust = 0.5)) +
         ggtitle(paste0("Counts of ", counted_col, " grouped by ", grouping_col))
     return(plt)
 }
+
 
 #' Draw density of exercise time.
 #'
@@ -60,6 +64,7 @@ draw_barplot <- function(dataset, counted_col, grouping_col) {
 #' draw_exercise_time_density(survey, "Walking/Biking", "Age")
 #
 #' @importFrom dplyr filter_ %>%
+#' @importFrom assertthat assert_that
 #' @import ggplot2
 #' @export
 draw_exercise_time_density <- function(dataset, exercise_type, grouping_col) {
@@ -82,12 +87,14 @@ draw_exercise_time_density <- function(dataset, exercise_type, grouping_col) {
     dataset_plot <- dataset %>%
         filter_(paste0("ExerciseType == '", exercise_type, "'")) %>%
         filter_(paste0("!is.na(MinutesPerDay) & !is.na(", grouping_col, ")"))
+
+    assert_that(nrow(dataset_plot) > 0, msg = "dataset used to plot is empty")
+
     plt <- ggplot(dataset_plot, aes_(~MinutesPerDay)) +
         geom_density(aes_string(group = grouping_col, colour = grouping_col)) +
         theme_minimal() +
         scale_y_continuous(name = "Density") +
         scale_x_continuous(name = "Avg Minutes/Day") +
-        scale_color_brewer(palette = "OrRd") +
         ggtitle(paste0("Density of ", exercise_type, " time grouped by ", grouping_col)) +
         theme(plot.title = element_text(hjust = 0.5))
     return(plt)
@@ -108,6 +115,7 @@ draw_exercise_time_density <- function(dataset, exercise_type, grouping_col) {
 #' draw_activity_effect(survey, "Moderate Work", "BMI")
 #
 #' @importFrom dplyr filter_ %>%
+#' @importFrom assertthat assert_that
 #' @import ggplot2
 #' @export
 draw_activity_effect <- function(dataset, exercise_type, effect_on_col, corr = TRUE) {
@@ -131,6 +139,9 @@ draw_activity_effect <- function(dataset, exercise_type, effect_on_col, corr = T
     dataset_plot <- dataset %>%
         filter_(paste0("ExerciseType == '", exercise_type, "'")) %>%
         filter_(paste0("!is.na(MinutesPerDay) & !is.na(", effect_on_col, ")"))
+
+    assert_that(nrow(dataset_plot) > 0, msg = "dataset used to plot is empty")
+
     plt <- ggplot(dataset_plot, aes_(x = ~MinutesPerDay)) +
         geom_point(aes_string(y = effect_on_col), colour = 'dodgerblue4', alpha = 0.7) +
         theme_minimal() +

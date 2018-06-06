@@ -20,6 +20,7 @@ test_that("draw_barplot throws correct errors", {
                  "grouping_col must be of type factor or character")
     expect_error(draw_barplot(survey, "Age", "SeqID"),
                  "grouping_col must not be SeqID")
+    expect_error(draw_barplot(survey[survey$SeqID == "0", ], "Age", "Education"))
 })
 
 test_that("draw_barplot output is a correct plot", {
@@ -66,6 +67,7 @@ test_that("draw_exercise_time_density throws correct errors", {
                  "grouping_col must be of type factor or character")
     expect_error(draw_exercise_time_density(survey, "Vigorous Work", "SeqID"),
                  "grouping_col must not be SeqID")
+    expect_error(draw_exercise_time_density(survey[survey$SeqID == "0", ], "Walking/Biking", "Age"))
 })
 
 test_that("draw_exercise_time_density output is a correct plot", {
@@ -114,6 +116,7 @@ test_that("draw_activity_effect throws correct errors", {
                  "effect_on_col must be of type numeric")
     expect_error(draw_activity_effect(survey, "Vigorous Work", "Pulse", 123),
                  "corr must be a logical value")
+    expect_error(draw_activity_effect(survey[survey$SeqID == "0", ], "Walking/Biking", "Pulse"))
 })
 
 test_that("draw_activity_effect output is a correct plot", {
@@ -140,6 +143,3 @@ test_that("draw_activity_effect output is a correct plot", {
     expect_equal(example2$labels$x, "MinutesPerDay")
     expect_equal(example2$labels$y, "Weight")
 })
-
-# TODO: change pallette (too few colors)
-# TODO: what if filtered data will be empty?
