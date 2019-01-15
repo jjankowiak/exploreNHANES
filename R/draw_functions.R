@@ -44,7 +44,8 @@ draw_barplot <- function(dataset, counted_col, grouping_col) {
         theme_minimal() +
         scale_y_continuous(name = '# of Participants') +
         scale_x_discrete(name = counted_col) +
-        theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        scale_fill_brewer() +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
               plot.title = element_text(hjust = 0.5)) +
         ggtitle(paste0("Counts of ", counted_col, " grouped by ", grouping_col))
     return(plt)
@@ -91,7 +92,7 @@ draw_exercise_time_density <- function(dataset, exercise_type, grouping_col) {
     assert_that(nrow(dataset_plot) > 0, msg = "dataset used to plot is empty")
 
     plt <- ggplot(dataset_plot, aes_(~MinutesPerDay)) +
-        geom_density(aes_string(group = grouping_col, colour = grouping_col)) +
+        geom_density(aes_string(group = grouping_col, colour = grouping_col), size = 1) +
         theme_minimal() +
         scale_y_continuous(name = "Density") +
         scale_x_continuous(name = "Avg Minutes/Day") +
