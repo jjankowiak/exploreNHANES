@@ -16,9 +16,46 @@ shinyUI(fluidPage(navbarPage(title = "",
             )
         )
     ),
-    tabPanel("Physical activity", ""
+    tabPanel("Physical activity",
+        fluidRow(
+            sidebarLayout(
+                sidebarPanel(
+                    selectInput("activity_type", "Type of physical activity",
+                                choices = c("Vigorous Work", "Moderate Work",
+                                            "Walking/Biking", "Vigorous Recreation",
+                                            "Moderate Recreation")),
+                    radioButtons("group_by2", "Grouped_by",
+                                choices = c("Education", "Ethnicity", "Age",
+                                            "Income", "Gender"))
+                ),
+                mainPanel(
+                    plotOutput("density")
+                )
+            )
+        ),
+        fluidRow(
+            sidebarLayout(
+                sidebarPanel(
+                    selectInput("activity_type2", "Type of physical activity",
+                                choices = c("Vigorous Work", "Moderate Work",
+                                            "Walking/Biking", "Vigorous Recreation",
+                                            "Moderate Recreation")),
+                    radioButtons("health_outcome", "Health outcome",
+                                 choices = c("Weight", "BMI", "LDLcholesterol",
+                                             "Triglyceride", "Pulse")),
+                    checkboxInput("fit_cor", "Fit correlation line", TRUE)
+                ),
+                mainPanel(
+                    plotOutput("activity_effect")
+                )
+            )
+        )
     ),
-    tabPanel("Raw data", ""
+    tabPanel("Raw data",
+        downloadButton("download_data", "Download data"),
+        br(),
+        br(),
+        DT::dataTableOutput("raw_data")
     )
  )
 ))
