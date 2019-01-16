@@ -14,19 +14,22 @@
 #' @importFrom assertthat assert_that
 #' @export
 count_observations <- function(dataset, grouping_cols) {
-    assert_that(!missing(dataset), msg = "dataset argument is missing")
-    assert_that(!missing(grouping_cols), msg = "grouping_cols argument is missing")
-    assert_that(is.data.frame(dataset), msg = "dataset is not a data frame")
-    assert_that(is.character(grouping_cols),
-                msg = "grouping_cols must be a string or vector of strings")
-    assert_that(all(grouping_cols %in% colnames(dataset)),
-                msg = "all elements of grouping_cols must be dataset's column names")
-    assert_that(all(sapply(grouping_cols, function(x) !is.numeric(dataset[, x]))),
-                msg = "all grouping_cols must be of type factor or character")
-    assert_that(all(grouping_cols != "SeqID"), msg = "SeqID must not be in grouping_cols")
+  assert_that(!missing(dataset), msg = "dataset argument is missing")
+  assert_that(!missing(grouping_cols), msg = "grouping_cols argument is missing")
+  assert_that(is.data.frame(dataset), msg = "dataset is not a data frame")
+  assert_that(is.character(grouping_cols),
+    msg = "grouping_cols must be a string or vector of strings"
+  )
+  assert_that(all(grouping_cols %in% colnames(dataset)),
+    msg = "all elements of grouping_cols must be dataset's column names"
+  )
+  assert_that(all(sapply(grouping_cols, function(x) !is.numeric(dataset[, x]))),
+    msg = "all grouping_cols must be of type factor or character"
+  )
+  assert_that(all(grouping_cols != "SeqID"), msg = "SeqID must not be in grouping_cols")
 
-    dataset_grouped <- dataset %>%
-        group_by_(.dots = grouping_cols) %>%
-        summarise(n = n())
-    return(dataset_grouped)
+  dataset_grouped <- dataset %>%
+    group_by_(.dots = grouping_cols) %>%
+    summarise(n = n())
+  return(dataset_grouped)
 }
