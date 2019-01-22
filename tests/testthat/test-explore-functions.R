@@ -45,20 +45,20 @@ test_that("count_observation works fine", {
   example1 <- count_observations(survey, "Gender")
   answer1 <- data.frame(
     Gender = c("Female", "Male"),
-    n = as.integer(c(4786, 5825)), stringsAsFactors = FALSE
+    Count = as.integer(c(4786, 5825)), stringsAsFactors = FALSE
   )
   expect_true(is.data.frame(example1))
-  expect_equal(colnames(example1), c("Gender", "n"))
+  expect_equal(colnames(example1), c("Gender", "Count"))
   expect_equal(example1, answer1)
 
   example2 <- count_observations(survey, c("ExerciseType", "Gender"))
   answer2 <- data.frame(
     ExerciseType = rep(levels(survey$ExerciseType), each = 2),
     Gender = rep(c("Female", "Male"), times = 5),
-    n = as.integer(c(358, 808, 1073, 1223, 937, 1103, 840, 1212, 1578, 1479)), stringsAsFactors = FALSE
+    Count = as.integer(c(358, 808, 1073, 1223, 937, 1103, 840, 1212, 1578, 1479)), stringsAsFactors = FALSE
   )
   answer2$ExerciseType <- factor(answer2$ExerciseType, ordered = TRUE, levels = levels(survey$ExerciseType))
   expect_true(is.data.frame(example2))
-  expect_equal(colnames(example2), c("ExerciseType", "Gender", "n"))
+  expect_equal(colnames(example2), c("ExerciseType", "Gender", "Count"))
   expect_equal(example2, answer2)
 })

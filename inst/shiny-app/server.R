@@ -5,9 +5,13 @@ shinyServer(function(input, output) {
         draw_barplot(survey, input$count_of, input$group_by)
     })
 
-    output$count_table <- DT::renderDataTable(DT::datatable({
-        count_observations(survey, c(input$count_of, input$group_by))
-    }, filter = "top"))
+    output$count_table <- DT::renderDataTable(
+        if (input$display_data) {
+            DT::datatable({
+                count_observations(survey, c(input$count_of, input$group_by))
+            }, filter = "top")
+        }
+    )
 
     output$density <- renderPlot({
         draw_exercise_time_density(survey, input$activity_type, input$group_by2)

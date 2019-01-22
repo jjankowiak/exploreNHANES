@@ -1,14 +1,18 @@
 library(shiny)
 library(exploreNHANES)
 
-shinyUI(fluidPage(navbarPage(title = "",
+shinyUI(fluidPage(navbarPage(title = "Explore NHANES data",
     tabPanel("Demographics",
         sidebarLayout(
             sidebarPanel(
+                tags$div("The ", tags$b("National Health and Nutrition Examination Survey (NHANES)"), "is a recurring assessment of national health metrics in the United States of America. The survey combines interviews with physical examinations and laboratory testing of ~10,000 Americans. The application allow to explore and visualize the results of the survey from 2013-2014."),
+                br(),
                 selectInput("count_of", "View counts of",
                             choices = c("Age", "Education", "Income")),
-                radioButtons("group_by", "Grouped_by",
-                            choices = c("Gender", "Ethnicity"))
+                radioButtons("group_by", "Grouped by",
+                            choices = c("Gender", "Ethnicity")),
+                checkboxInput("display_data", "Display data table?",
+                             value = FALSE)
             ),
             mainPanel(
                 plotOutput("barplot"),

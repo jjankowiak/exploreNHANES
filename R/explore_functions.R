@@ -30,6 +30,6 @@ count_observations <- function(dataset, grouping_cols) {
 
   dataset_grouped <- dataset %>%
     group_by_(.dots = grouping_cols) %>%
-    summarise(n = n())
+    summarise(Count = n())
   return(dataset_grouped)
 }
