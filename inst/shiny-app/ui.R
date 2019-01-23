@@ -56,10 +56,44 @@ shinyUI(fluidPage(navbarPage(title = "Explore NHANES data",
         )
     ),
     tabPanel("Raw data",
-        downloadButton("download_data", "Download data"),
-        br(),
-        br(),
-        DT::dataTableOutput("raw_data")
+        fluidRow(
+            column(4,
+                   selectInput("filter_exercise_type", "Exercise type",
+                               choices = unique(survey$ExerciseType),
+                               selected = unique(survey$ExerciseType),
+                               multiple = TRUE),
+                   sliderInput("filter_minutes_per_day", "Minutes per day",
+                               min = min(survey$MinutesPerDay),
+                               max = max(survey$MinutesPerDay),
+                               value = c(min(survey$MinutesPerDay),
+                                         max(survey$MinutesPerDay))),
+                   checkboxGroupInput("filter_gender", "Gender",
+                                      choices = unique(survey$Gender),
+                                      selected = unique(survey$Gender),
+                                      inline = TRUE)
+                   ),
+            column(4,
+                   selectInput("filter_age", "Age",
+                               choices = levels(survey$Age),
+                               selected = levels(survey$Age), multiple = TRUE),
+                   selectInput("filter_ethnicity", "Ethnicity",
+                               choices = unique(survey$Ethnicity),
+                               selected = unique(survey$Ethnicity), multiple = TRUE),
+                   selectInput("filter_education", "Education",
+                               choices = levels(survey$Education),
+                               selected = levels(survey$Education), multiple = TRUE)
+            ),
+            column(4,
+                   selectInput("filter_income", "Income",
+                               choices = levels(survey$Income),
+                               selected = levels(survey$Income), multiple = TRUE),
+                   actionButton("filter_button", "Filter data"),
+                   downloadButton("download_data", "Download data")
+            )
+        ),
+        fluidRow(
+            DT::dataTableOutput("raw_data")
+        )
     )
  )
 ))

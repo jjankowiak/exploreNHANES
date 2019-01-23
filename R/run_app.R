@@ -10,5 +10,5 @@ run_app <- function() {
   if (appDir == "") {
     stop("Could not find shiny-app. Try re-installing `exploreNHANES`.", call. = FALSE)
   }
-  shiny::runApp(appDir, display.mode = "normal")
+  shiny::runApp(appDir, display.mode = "normal", launch.browser = TRUE)
 }

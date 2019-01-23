@@ -14,14 +14,17 @@ test_that("draw_barplot throws correct errors", {
     "counted_col must be dataset's column name"
   )
   expect_error(
-    draw_barplot(survey, "NoChild", "Gender"),
+    draw_barplot(survey, "Height", "Gender"),
     "counted_col must be of type factor or character"
   )
   expect_error(
     draw_barplot(survey, "SeqID", "Gender"),
     "counted_col must not be SeqID"
   )
-  expect_error(draw_barplot(survey, "Age", list()), "grouping_col must be a string")
+  expect_error(
+      draw_barplot(survey, "Age", list()),
+      "grouping_col must be a string"
+  )
   expect_error(
     draw_barplot(survey, "Age", "Country"),
     "grouping_col must be dataset's column name"
