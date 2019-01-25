@@ -1,6 +1,6 @@
 Package: exploreNHANES
 Title: Explore and visualize NHANES data
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: person("Justyna", "Jankowiak", email = "just.jankowiak@gmail.com", role = c("aut", "cre"))
 Description: This package has been created to explore a subset of NHANES publication, drawing attention to the prevalence of exercise and associated health effects across different demographics. The functions allow to explore and visualize data.
 Depends: R (>= 3.4)
