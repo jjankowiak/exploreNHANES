@@ -5,7 +5,7 @@ shinyUI(fluidPage(navbarPage(title = "Explore NHANES data",
     tabPanel("Demographics",
         sidebarLayout(
             sidebarPanel(
-                tags$div("The ", tags$b("National Health and Nutrition Examination Survey (NHANES)"), "is a recurring assessment of national health metrics in the United States of America. The survey combines interviews with physical examinations and laboratory testing of ~10,000 Americans. The application allow to explore and visualize the results of the survey from 2013-2014."),
+                tags$div("The ", tags$b("National Health and Nutrition Examination Survey (NHANES)"), "is a recurring assessment of national health metrics in the United States of America. The survey combines interviews with physical examinations and laboratory testing of ~10,000 Americans. The application allows to explore and visualize the results of the survey from 2013-2014."),
                 br(),
                 selectInput("count_of", "View counts of",
                             choices = c("Age", "Education", "Income")),
