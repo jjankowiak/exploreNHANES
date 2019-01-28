@@ -13,5 +13,6 @@ Imports:
     ggplot2,
     assertthat,
     shiny,
-    tibble
+    tibble,
+    magrittr
 Suggests: testthat
