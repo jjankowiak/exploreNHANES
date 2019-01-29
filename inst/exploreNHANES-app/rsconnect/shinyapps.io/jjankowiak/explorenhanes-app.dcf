@@ -5,6 +5,6 @@ account: jjankowiak
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 670034
-bundleId: 1840875
+bundleId: 1840904
 url: https://jjankowiak.shinyapps.io/explorenhanes-app/
-when: 1548668532.02593
+when: 1548669906.75659

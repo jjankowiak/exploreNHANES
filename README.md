@@ -13,3 +13,5 @@ You can use package functions directly or you can explore their functionalities 
 exploreNHANES::run_app()
 ```
 
+The ready-to-use application is also available on [my shinyapps.io website](https://jjankowiak.shinyapps.io/explorenhanes-app/).
+
