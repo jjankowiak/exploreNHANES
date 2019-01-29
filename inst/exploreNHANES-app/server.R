@@ -1,7 +1,7 @@
 library(shiny)
 library(dplyr)
 
-shinyServer(function(input, output) {
+shinyServer(function(session, input, output) {
     output$barplot <- renderPlot({
         draw_barplot(survey, input$count_of, input$group_by)
     })
@@ -38,6 +38,33 @@ shinyServer(function(input, output) {
             Education %in% filter_education,
             Income %in% filter_income
         )
+    })
+
+    observeEvent(input$delete_filter_button, {
+        updateSelectInput(session, "filter_exercise_type", "Exercise type",
+                    choices = unique(survey$ExerciseType),
+                    selected = unique(survey$ExerciseType))
+        updateSliderInput(session, "filter_minutes_per_day", "Minutes per day",
+                    min = min(survey$MinutesPerDay),
+                    max = max(survey$MinutesPerDay),
+                    value = c(min(survey$MinutesPerDay),
+                              max(survey$MinutesPerDay)))
+        updateCheckboxGroupInput(session, "filter_gender", "Gender",
+                           choices = unique(survey$Gender),
+                           selected = unique(survey$Gender),
+                           inline = TRUE)
+        updateSelectInput(session, "filter_age", "Age",
+                    choices = levels(survey$Age),
+                    selected = levels(survey$Age))
+        updateSelectInput(session, "filter_ethnicity", "Ethnicity",
+                    choices = unique(survey$Ethnicity),
+                    selected = unique(survey$Ethnicity))
+        updateSelectInput(session, "filter_education", "Education",
+                    choices = c(levels(survey$Education), "NA"),
+                    selected = c(levels(survey$Education), "NA"))
+        updateSelectInput(session, "filter_income", "Income",
+                    choices = c(levels(survey$Income), "NA"),
+                    selected = c(levels(survey$Income), "NA"))
     })
 
     output$download_data <- downloadHandler(

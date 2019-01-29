@@ -88,6 +88,9 @@ shinyUI(fluidPage(navbarPage(title = "Explore NHANES data",
                                choices = levels(survey$Income),
                                selected = levels(survey$Income), multiple = TRUE),
                    actionButton("filter_button", "Filter data"),
+                   actionButton("delete_filter_button", "Delete filters"),
+                   br(),
+                   br(),
                    downloadButton("download_data", "Download data")
             )
         ),
