@@ -1,5 +1,4 @@
 library(exploreNHANES)
-library(dplyr)
 source("modules/demographicsModule.R")
 source("modules/activityModule.R")
 source("modules/rawDataModule.R")
