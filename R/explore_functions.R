@@ -9,7 +9,6 @@
 #' @examples
 #' count_observations(survey, "Gender")
 #' count_observations(survey, c("Gender", "Age"))
-#'
 #' @importFrom dplyr group_by_ summarise n %>%
 #' @importFrom assertthat assert_that
 #' @export

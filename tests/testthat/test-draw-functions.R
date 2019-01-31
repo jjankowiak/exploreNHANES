@@ -22,8 +22,8 @@ test_that("draw_barplot throws correct errors", {
     "counted_col must not be SeqID"
   )
   expect_error(
-      draw_barplot(survey, "Age", list()),
-      "grouping_col must be a string"
+    draw_barplot(survey, "Age", list()),
+    "grouping_col must be a string"
   )
   expect_error(
     draw_barplot(survey, "Age", "Country"),

@@ -21,5 +21,4 @@ number of observations in each group is calculated.
 \examples{
 count_observations(survey, "Gender")
 count_observations(survey, c("Gender", "Age"))
-
 }

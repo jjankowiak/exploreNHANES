@@ -9,7 +9,6 @@
 #' @examples
 #' draw_barplot(survey, "Age", "Ethnicity")
 #' draw_barplot(survey, "Income", "Gender")
-#
 #' @importFrom dplyr filter_ %>%
 #' @importFrom assertthat assert_that
 #' @import ggplot2
@@ -70,7 +69,6 @@ draw_barplot <- function(dataset, counted_col, grouping_col) {
 #' @examples
 #' draw_exercise_time_density(survey, "Vigorous Work", "Gender")
 #' draw_exercise_time_density(survey, "Walking/Biking", "Age")
-#
 #' @importFrom dplyr filter_ %>%
 #' @importFrom assertthat assert_that
 #' @import ggplot2
@@ -128,7 +126,6 @@ draw_exercise_time_density <- function(dataset, exercise_type, grouping_col) {
 #' @examples
 #' draw_activity_effect(survey, "Vigorous Work", "Weight", FALSE)
 #' draw_activity_effect(survey, "Moderate Work", "BMI")
-#
 #' @importFrom dplyr filter_ %>%
 #' @importFrom assertthat assert_that
 #' @import ggplot2
