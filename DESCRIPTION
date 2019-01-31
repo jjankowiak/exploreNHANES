@@ -14,5 +14,6 @@ Imports:
     assertthat,
     shiny,
     tibble,
-    magrittr
+    magrittr,
+    DT
 Suggests: testthat
